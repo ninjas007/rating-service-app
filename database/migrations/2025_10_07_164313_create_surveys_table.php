@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('templates', function (Blueprint $table) {
+        Schema::create('surveys', function (Blueprint $table) {
             $table->id();
             $table->string('uid')->unique();
             $table->string('name');
-            $table->string('bg_image_path')->nullable();
-            $table->string('bg_color')->nullable();
-            $table->string('bg_running_text')->nullable();
-            $table->text('running_text')->nullable();
-            $table->string('running_text_color')->nullable();
-            $table->string('running_text_speed')->nullable();
-            $table->string('logo_template_path')->nullable();
+            $table->text('description')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->integer('location_id')->nullable();
+            $table->integer('template_id')->nullable();
+            $table->enum('type', ['single', 'multi'])->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('templates');
+        Schema::dropIfExists('surveys');
     }
 };

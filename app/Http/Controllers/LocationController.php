@@ -1,32 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Master;
+namespace App\Http\Controllers;
 
+use App\Models\Location;
 use Illuminate\Http\Request;
-use App\Models\Master\MasterRuangan as Ruangan;
-use Illuminate\Support\Str;
-use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
-class RuanganController extends Controller
+class LocationController extends Controller
 {
-    protected $page = 'ruangan';
+    protected $page = 'location';
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('ruangan.index', [
+        return view('location.index', [
             'page' => $this->page,
-            'title' => 'ruangan',
+            'title' => 'location',
         ]);
     }
 
     public function getData()
     {
         if (request()->ajax()) {
-            $query = Ruangan::query();
+            $query = Location::query();
             $search = request()->input('filters') ?? [];
             $orderBy = request()->input('orderBy') != 0 ? request()->input('orderBy') : 'id';
             $asc = request()->input('ascending') == 'true' ? 'asc' : 'desc';
@@ -53,17 +52,18 @@ class RuanganController extends Controller
         $this->validate($request, [
             'name' => 'required',
         ], [
-            'name.required' => 'Nama ruangan harus diisi',
+            'name.required' => 'Nama location harus diisi',
         ]);
 
         try {
-            $ruangan = new Ruangan();
-            $ruangan->uid = Str::uuid();
-            $ruangan->name = $request->name;
-            $ruangan->description = $request->description;
-            $ruangan->created_at = now();
-            $ruangan->updated_at = now();
-            $ruangan->save();
+            $location = new Location();
+            $location->uid = Str::uuid();
+            $location->name = $request->name;
+            $location->description = $request->description;
+            $location->status = $request->status;
+            $location->created_at = now();
+            $location->updated_at = now();
+            $location->save();
 
             return response()->json([
                 'status' => 'success',
@@ -86,15 +86,16 @@ class RuanganController extends Controller
         $this->validate($request, [
             'name' => 'required',
         ], [
-            'name.required' => 'Nama ruangan harus diisi',
+            'name.required' => 'Nama lokasi harus diisi',
         ]);
 
         try {
-            $ruangan = Ruangan::where('uid', $uid)->firstOrFail();
-            $ruangan->name = $request->name;
-            $ruangan->description = $request->description;
-            $ruangan->updated_at = now();
-            $ruangan->save();
+            $location = Location::where('uid', $uid)->firstOrFail();
+            $location->name = $request->name;
+            $location->description = $request->description;
+            $location->status = $request->status;
+            $location->updated_at = now();
+            $location->save();
 
             return response()->json([
                 'status' => 'success',
@@ -114,13 +115,13 @@ class RuanganController extends Controller
      */
     public function destroy(string $uid)
     {
-        $ruangan = Ruangan::where('uid', $uid)->first();
-        if (!$ruangan) {
+        $location = Location::where('uid', $uid)->first();
+        if (!$location) {
             return response()->json(['status' => 'error', 'message' => 'Data tidak ditemukan']);
         }
 
         try {
-            $ruangan->delete();
+            $location->delete();
 
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus']);
         } catch (\Exception $e) {

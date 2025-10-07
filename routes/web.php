@@ -3,9 +3,9 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\AboutController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Master\RuanganController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,21 +38,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [DashboardController::class, 'index'])->name('home');
 
     Route::middleware(['client'])->group(function () {
-
         Route::middleware(['roles:admin,supervisor'])->group(function () {
-            // parameter
-            Route::middleware(['roles:admin'])->group(function () {
+            Route::group(['prefix' => 'location'], function () {
+                Route::get('/', [LocationController::class, 'index'])->name('location.index');
+                Route::get('/data', [LocationController::class, 'getData'])->name('location.data');
+                Route::post('/store', [LocationController::class, 'store'])->name('location.store');
+                Route::put('/update/{uid}', [LocationController::class, 'update'])->name('location.update');
+                Route::delete('/delete/{uid}', [LocationController::class, 'destroy'])->name('location.destroy');
+            });
 
-                // master
-                Route::group(['prefix' => 'master'], function () {
-                    Route::group(['prefix' => 'ruangan'], function () {
-                        Route::get('/', [RuanganController::class, 'index'])->name('master.ruangan.index');
-                        Route::get('/data', [RuanganController::class, 'getData'])->name('master.ruangan.data');
-                        Route::post('/store', [RuanganController::class, 'store'])->name('master.ruangan.store');
-                        Route::put('/update/{uid}', [RuanganController::class, 'update'])->name('master.ruangan.update');
-                        Route::delete('/delete/{uid}', [RuanganController::class, 'destroy'])->name('master.ruangan.destroy');
-                    });
-                });
+            Route::group(['prefix' => 'question'], function () {
+                Route::get('/', [QuestionController::class, 'index'])->name('question.index');
+                Route::get('/data', [QuestionController::class, 'getData'])->name('question.data');
+                Route::post('/store', [QuestionController::class, 'store'])->name('question.store');
+                Route::put('/update/{uid}', [QuestionController::class, 'update'])->name('question.update');
+                Route::delete('/delete/{uid}', [QuestionController::class, 'destroy'])->name('question.destroy');
             });
         });
 
@@ -79,5 +79,3 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 });
-
-// Route::get('/hasil', [HL7LabResultController::class, 'index']);

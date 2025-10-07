@@ -11,12 +11,24 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ url('/location') }}" aria-expanded="false">
+                    <i class="fa fa-map menu-icon"></i><span class="nav-text">Lokasi</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url('/question') }}" aria-expanded="false">
+                    <i class="fa fa-list menu-icon"></i><span class="nav-text">Pertanyaan</span>
+                </a>
+            </li>
+
             <li class="nav-label">Pengaturan</li>
 
             @if (auth()->user()->role == 'supervisor' || auth()->user()->role == 'admin')
                 <li>
                     <a href="{{ url('/users') }}" aria-expanded="false">
-                        <i class="fa fa-users menu-icon"></i><span class="nav-text">Users</span>
+                        <i class="fa fa-users menu-icon"></i><span class="nav-text">Pengguna</span>
                     </a>
                 </li>
             @endif
