@@ -5,7 +5,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ResponseController;
+use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\UserController;
+use App\Models\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +34,9 @@ Route::get('/', function () {
 
 Route::post('/login', [LoginController::class, 'store'])->name('login');
 
+Route::get('/survey/preview/{uid}', [SurveyController::class, 'preview'])->withoutMiddleware(['auth']);
+Route::post('/response/feedback/store', [ResponseController::class, 'storeFeedback'])->withoutMiddleware(['auth']);
+
 // route with auth middleware
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [LoginController::class, 'profile'])->name('profile');
@@ -53,6 +60,23 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/store', [QuestionController::class, 'store'])->name('question.store');
                 Route::put('/update/{uid}', [QuestionController::class, 'update'])->name('question.update');
                 Route::delete('/delete/{uid}', [QuestionController::class, 'destroy'])->name('question.destroy');
+            });
+
+            Route::group(['prefix' => 'templates'], function () {
+                Route::get('/', [TemplateController::class, 'index'])->name('templates.index');
+                Route::get('/data', [TemplateController::class, 'getData'])->name('templates.data');
+                Route::post('/store', [TemplateController::class, 'store'])->name('templates.store');
+                Route::post('/update/{uid}', [TemplateController::class, 'update'])->name('templates.update');
+                Route::delete('/delete/{uid}', [TemplateController::class, 'destroy'])->name('templates.destroy');
+            });
+
+            Route::group(['prefix' => 'survey'], function () {
+                Route::get('/', [SurveyController::class, 'index'])->name('survey.index');
+                Route::get('/data', [SurveyController::class, 'getData'])->name('survey.data');
+                Route::post('/store', [SurveyController::class, 'store'])->name('survey.store');
+                Route::post('/update/{uid}', [SurveyController::class, 'update'])->name('survey.update');
+                Route::delete('/delete/{uid}', [SurveyController::class, 'destroy'])->name('survey.destroy');
+                Route::get('/details/{id}', [SurveyController::class, 'details'])->name('survey.details');
             });
         });
 

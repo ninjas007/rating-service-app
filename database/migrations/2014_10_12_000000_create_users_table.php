@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('status')->default('active'); // active dan inactive
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

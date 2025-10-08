@@ -4,10 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Master\MasterJenisLayanan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class MasterJenisLayananSeeder extends Seeder
+class LocationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,16 +17,18 @@ class MasterJenisLayananSeeder extends Seeder
         $data = [
             [
                 'uid' => Str::uuid(),
-                'name' => 'Reguler',
-                'description' => ''
+                'name' => 'Toilet',
+                'description' => 'Toilet Ruangan 1',
+                'status' => 1
             ],
             [
                 'uid' => Str::uuid(),
-                'name' => 'VIP',
-                'description' => ''
-            ],
+                'name' => 'Area Parkir',
+                'description' => 'Area Parkir Motor',
+                'status' => 1
+            ]
         ];
 
-        MasterJenisLayanan::insert($data);
+        DB::table('locations')->insert($data);
     }
 }

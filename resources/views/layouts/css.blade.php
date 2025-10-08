@@ -7,7 +7,7 @@
         font-size: 18px;
     }
 
-    .form-control {
+    .form-control:not(textarea) {
         min-height: 33px !important;
         height: 33px !important;
     }

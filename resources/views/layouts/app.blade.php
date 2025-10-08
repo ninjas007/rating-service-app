@@ -62,9 +62,6 @@
 </head>
 
 <body>
-
-    <audio id="notify-sound" src="{{ asset('theme/sound/bell.mp3') }}" preload="auto"></audio>
-
     <!--*******************
         Preloader start
     ********************-->

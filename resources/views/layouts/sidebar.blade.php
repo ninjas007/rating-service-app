@@ -23,6 +23,18 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ url('/templates') }}" aria-expanded="false">
+                    <i class="fa fa-file menu-icon"></i><span class="nav-text">Template</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url('/survey') }}" aria-expanded="false">
+                    <i class="fa fa-file menu-icon"></i><span class="nav-text">Publish Survey</span>
+                </a>
+            </li>
+
             <li class="nav-label">Pengaturan</li>
 
             @if (auth()->user()->role == 'supervisor' || auth()->user()->role == 'admin')

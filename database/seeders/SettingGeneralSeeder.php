@@ -15,16 +15,12 @@ class SettingGeneralSeeder extends Seeder
     {
         $data = [
             [
-                'key' => 'limit_connection',
-                'value' => json_encode(['value' => 1, 'unit' => 'minute']), // 1,
+                'key' => 'nama_perusahaan',
+                'value' => json_encode(['value' => 'BIO EXPERIENCE INDONESIA']), // 1,
             ],
             [
-                'key' => 'nama_rs',
-                'value' => json_encode(['value' => 'RS. BHAYANGKARA KUPANG']), // 1,
-            ],
-            [
-                'key' => 'alamat_rs',
-                'value' => json_encode(['value' => 'Jl. Nangka No. 84, Kota Kupang, NTT'])
+                'key' => 'alamat_perusahaan',
+                'value' => json_encode(['value' => 'Jl. Buni Jakarta Barat'])
             ]
         ];
 

@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            MasterRuanganSeeder::class,
-            MasterJenisLayananSeeder::class,
-            SettingGeneralSeeder::class
+            SettingGeneralSeeder::class,
+            QuestionSeeder::class,
+            LocationSeeder::class
         ]);
     }
 }

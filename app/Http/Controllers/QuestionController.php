@@ -63,6 +63,7 @@ class QuestionController extends Controller
             $question->question = $request->question;
             $question->is_service = $request->is_service;
             $question->status = $request->status;
+            $question->icon = $request->icon;
             $question->created_at = now();
             $question->updated_at = now();
             $question->save();
@@ -99,6 +100,7 @@ class QuestionController extends Controller
             $question->description = $request->description;
             $question->status = $request->status;
             $question->is_service = $request->is_service;
+            $question->icon = $request->icon;
             $question->updated_at = now();
             $question->save();
 

@@ -20,6 +20,7 @@
                             <tr>
                                 <th class="text-center" width="5%">No</th>
                                 <th>Pertanyaan</th>
+                                <th>Icon</th>
                                 <th>Deskripsi</th>
                                 <th>Kategori</th>
                                 <th>Status</th>
@@ -59,6 +60,14 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="icon">Icon</label>
+                            Contoh: {{ "fa fa-user" }}. Ambil dari <a href='https://fontawesome.com/icons?d=gallery'
+                                target='_blank'>FontAwesome</a>
+                            <input type="text" name="icon" id="icon" class="form-control"
+                                placeholder="Masukkan Icon.">
+                        </div>
+
+                        <div class="form-group">
                             <label for="description"></label>
                             <input type="text" name="description" id="description" class="form-control"
                                 placeholder="Masukkan Deskripsi">
@@ -68,8 +77,8 @@
                         <div class="form-group">
                             <label for="status">Status</label>
                             <select name="status" id="status" class="form-control" style="width: 100%">
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
+                                <option value="1">Aktif</option>
+                                <option value="0">Tidak Aktif</option>
                             </select>
                         </div>
                     </form>
@@ -102,6 +111,11 @@
                 },
                 {
                     data: 'question'
+                },
+                {
+                    data: 'icon',
+                    orderable: false,
+                    render: d => d ? `<i class="${d}"></i>` : '-'
                 },
                 {
                     data: 'description',
@@ -140,6 +154,7 @@
                                     data-description="${row.description}"
                                     data-status="${row.status}"
                                     data-isservice="${row.is_service}"
+                                    data-icon="${row.icon}"
                                     data-toggle="tooltip" data-placement="top"
                                     title="Edit">
                                 </i>
@@ -172,6 +187,7 @@
             $('#status').val($(this).data('status')).trigger('change');
             $('#is_service').val($(this).data('isservice')).trigger('change');
             $('#description').val($(this).data('description'));
+            $('#icon').val($(this).data('icon'));
 
             $('#formModal').modal('show');
         });
@@ -196,6 +212,7 @@
                 question: $("#question").val(),
                 description: $('#description').val(),
                 status: $('#status').val(),
+                icon: $('#icon').val(),
                 is_service: $('#is_service').val()
             }),
             onSaved: () => {
