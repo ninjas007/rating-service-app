@@ -199,9 +199,9 @@ class SurveyController extends Controller
         }
     }
 
-    public function preview($uid)
+    public function preview($id)
     {
-        $survey = Survey::where('uid', $uid)->first();
+        $survey = Survey::where('id', $id)->first();
 
         if (!$survey) {
             abort(404);

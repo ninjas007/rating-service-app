@@ -1,60 +1,151 @@
 @extends('layouts.app')
 
 @section('content-app')
-    <form action="" method="GET">
-        <div class="row d-flex justify-content-end">
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="tanggal">Tanggal</label>
-                    <input type="date" name="tanggal" id="tanggal" class="form-control"
-                        value="{{ request('tanggal') ?? date('Y-m-d') }}">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                </div>
-            </div>
-            <div class="col-md-6 text-right">
-                <div class="form-group">
-                    <a href="{{ url('home') }}" class="btn btn-danger">
-                        <i class="fa fa-refresh"></i> Reset</a>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-filter"></i> Filter</button>
-                </div>
-            </div>
-        </div>
+    <h4>📊 Rating Service Dashboard</h4>
+
+    <form method="GET" class="mb-3">
+        <input type="date" name="tanggal" value="{{ $tgl }}" class="form-control"
+            style="width:300px; display:inline-block">
+        <button class="btn btn-primary">Filter</button>
     </form>
 
-    <div id="originalDashboardContainer">
-        <div class="row" id="contentBox">
-            {{-- load ajax content box --}}
-        </div>
-
-
-        <div class="row">
-
-        </div>
-
-        <div class="row">
-
+    <div class="card mb-2">
+        <div class="card-header py-2">Aktivitas Berdasarkan Jam</div>
+        <div class="card-body p-2">
+            <canvas id="chartHour"></canvas>
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-6 mb-2">
+            <div class="card h-100">
+                <div class="card-header py-2">Berdasarkan Lokasi</div>
+                <div class="card-body p-2">
+                    <canvas id="chartLocation"></canvas>
+                </div>
+            </div>
+        </div>
 
-    <!-- Modal Fullscreen Kosong -->
-    <div id="fullscreenModal"
-        style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:white; z-index:1050; overflow:auto; padding:30px; overflow-y: hidden">
-        <button id="closeFullscreenBtn" style="display: none">
-            <i class="fas fa-times"></i> Keluar Fullscreen
-        </button>
-        <div id="fullscreenContent"></div>
+        <div class="col-md-6 mb-2">
+            <div class="card h-100">
+                <div class="card-header py-2">Berdasarkan Rating</div>
+                <div class="card-body p-2">
+                    <canvas id="chartRating"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
+@section('css')
+    <style>
+        canvas {
+            max-height: 150px !important;
+        }
+
+        #chartHour {
+            max-height: 120px !important;
+        }
+
+        .card-header {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            height: auto;
+        }
+    </style>
+@endsection
+
 @section('js')
-    <!-- Chart.js CDN -->
-    <script src="{{ asset('theme/js') }}/chart.js"></script>
-    <script src="{{ asset('theme/js') }}/chartjs-plugin-datalabels@2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labelsLocation = {!! json_encode($labelsLocation) !!};
+        const dataLocation = {!! json_encode($dataLocation) !!};
+
+        // buat warna dinamis (acak lembut)
+        const colors = labelsLocation.map(() =>
+            `hsl(${Math.floor(Math.random() * 360)}, 70%, 60%)`
+        );
+
+        const chartLocation = new Chart(document.getElementById('chartLocation'), {
+            type: 'bar',
+            data: {
+                labels: labelsLocation,
+                datasets: [{
+                    label: 'Total Response',
+                    data: dataLocation,
+                    backgroundColor: colors,
+                    borderColor: colors.map(c => c.replace('60%',
+                    '40%')), // sedikit lebih gelap untuk border
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                maintainAspectRatio: false
+            }
+        });
+
+        const chartHour = new Chart(document.getElementById('chartHour'), {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($labelsHour) !!},
+                datasets: [{
+                    label: 'Response per Jam',
+                    data: {!! json_encode($dataHour) !!},
+                    fill: false,
+                    borderColor: '#28a745',
+                    tension: 0.2
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                maintainAspectRatio: false
+            }
+        });
+
+        const chartRating = new Chart(document.getElementById('chartRating'), {
+            type: 'doughnut',
+            data: {
+                labels: {!! json_encode($labelsRating) !!},
+                datasets: [{
+                    data: {!! json_encode($dataRating) !!},
+                    backgroundColor: ['#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff']
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 10
+                        }
+                    }
+                },
+                maintainAspectRatio: false
+            }
+        });
+    </script>
 @endsection
