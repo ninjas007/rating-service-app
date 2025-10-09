@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ReportFeedbackController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TemplateController;
@@ -77,6 +78,12 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/update/{uid}', [SurveyController::class, 'update'])->name('survey.update');
                 Route::delete('/delete/{uid}', [SurveyController::class, 'destroy'])->name('survey.destroy');
                 Route::get('/details/{id}', [SurveyController::class, 'details'])->name('survey.details');
+            });
+
+            Route::group(['prefix' => 'report-feedback'], function () {
+                Route::get('/', [ReportFeedbackController::class, 'index'])->name('report-feedback.index');
+                Route::get('/export/excel', [ReportFeedbackController::class, 'exportExcel'])->name('report-feedback.excel');
+                Route::get('/export/pdf', [ReportFeedbackController::class, 'exportPdf'])->name('report-feedback.pdf');
             });
         });
 

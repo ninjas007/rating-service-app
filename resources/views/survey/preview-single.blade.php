@@ -15,13 +15,7 @@
 <body>
     <div class="feedback-container" style="background-image: url('{{ asset($survey->template->bg_image_path) }}')">
         <!-- Header -->
-        <div class="header">
-            <div class="logo"><img src="{{ asset($survey->template->logo_template_path) }}" alt="Logo"></div>
-            <div class="area-info">
-                <h4><strong id="areaName">{{ $survey->location->name ?? '' }}</strong></h4>
-            </div>
-            <div class="datetime" id="dateTime"></div>
-        </div>
+        @include('survey._header')
 
         <!-- Question content -->
         <div class="question-section">
@@ -32,13 +26,7 @@
         </div>
 
         <!-- Footer running text -->
-        <div class="running-text" style="background-color: {{ $survey->template->bg_running_text }}">
-            <span id="runningText"
-                style="color: {{ $survey->template->running_text_color }};
-            animation: moveText {{ $survey->template->running_text_speed }}s linear infinite; ">
-                {{ $survey->template->running_text }}
-            </span>
-        </div>
+       @include('survey._footer')
     </div>
 
     <!-- Modals -->

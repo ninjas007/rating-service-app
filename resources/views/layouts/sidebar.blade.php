@@ -31,19 +31,25 @@
 
             <li>
                 <a href="{{ url('/survey') }}" aria-expanded="false">
-                    <i class="fa fa-file menu-icon"></i><span class="nav-text">Publish Survey</span>
+                    <i class="fa fa-send menu-icon"></i><span class="nav-text">Publish Survey</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url('/report-feedback') }}" aria-expanded="false">
+                    <i class="fa fa-file menu-icon"></i><span class="nav-text">Laporan Feedback</span>
                 </a>
             </li>
 
             <li class="nav-label">Pengaturan</li>
 
-            @if (auth()->user()->role == 'supervisor' || auth()->user()->role == 'admin')
+            {{-- @if (auth()->user()->role == 'supervisor' || auth()->user()->role == 'admin')
                 <li>
                     <a href="{{ url('/users') }}" aria-expanded="false">
                         <i class="fa fa-users menu-icon"></i><span class="nav-text">Pengguna</span>
                     </a>
                 </li>
-            @endif
+            @endif --}}
 
             @if (auth()->user()->role == 'admin')
                 <li>

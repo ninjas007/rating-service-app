@@ -92,13 +92,13 @@
                                     <div class="mt-1" id="preview_bg_image"></div>
                                 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="logo_template_path">Logo Template</label>
                                     <input type="file" class="form-control" name="logo_template_path"
                                         id="logo_template_path" accept="image/png, image/gif, image/jpeg, images/jpg"
                                          />
                                     <div class="mt-1" id="preview_logo"></div>
-                                </div>
+                                </div> --}}
                                 <div class="form-group">
                                     <label for="status">Status</label>
                                     <select id="status" class="form-control" name="status" required>
@@ -167,7 +167,6 @@
                             data-running_text="${row.running_text}"
                             data-running_text_color="${row.running_text_color}"
                             data-running_text_speed="${row.running_text_speed}"
-                            data-logo_template_path="${row.logo_template_path}"
                             data-status="${row.status}"
                             title="Edit"></i>
                         <i class="fa fa-times-circle btn-sm  text-danger delete-btn"
@@ -201,7 +200,7 @@
             const bgImg = $(this).data("bg_image_path");
             const logoImg = $(this).data("logo_template_path");
             $('#preview_bg_image').html(bgImg ? `<img src="${bgImg}" width="120" class="img-thumbnail mt-1">` : '');
-            $('#preview_logo').html(logoImg ? `<img src="${logoImg}" width="120" class="img-thumbnail mt-1">` : '');
+            // $('#preview_logo').html(logoImg ? `<img src="${logoImg}" width="120" class="img-thumbnail mt-1">` : '');
 
             $('#formModal').modal('show');
         });
@@ -253,13 +252,13 @@
             reader.readAsDataURL(file);
         });
 
-        $(document).on("change", "#logo_template_path", function() {
-            const file = this.files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                $('#preview_logo').html(`<img src="${e.target.result}" width="120" class="img-thumbnail mt-1">`);
-            };
-            reader.readAsDataURL(file);
-        });
+        // $(document).on("change", "#logo_template_path", function() {
+        //     const file = this.files[0];
+        //     const reader = new FileReader();
+        //     reader.onload = function(e) {
+        //         $('#preview_logo').html(`<img src="${e.target.result}" width="120" class="img-thumbnail mt-1">`);
+        //     };
+        //     reader.readAsDataURL(file);
+        // });
     </script>
 @endsection

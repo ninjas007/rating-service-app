@@ -18,14 +18,10 @@ yarn-error.log
 /.idea
 /.vscode
 public/images/logo.png
+public/images/logors.png
 public/images/background.png
 public/images/gambar-login.png
 public/images/logo-laporan.png
-connect-alat/node_modules
 settings.json
 /settings.json
-/chatlab/node_modules
-/chatlab/chat/general.json
-/chatlab/chat/room1.json
-/chatlab/chat/room2.json
 /backup.log

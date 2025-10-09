@@ -186,7 +186,7 @@
                     <div class="action-icon-wrapper">
                         <i class="fa fa-eye btn-sm  text-info preview-btn"
                             data-toggle="tooltip" data-placement="top"
-                            data-id="${data}" title="Preview"></i>
+                            data-id="${row.id}" title="Preview"></i>
                         <i class="fa fa-pencil-square text-primary edit-btn"
                             data-id="${data}"
                             data-name="${row.name}"

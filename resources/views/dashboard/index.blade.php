@@ -28,7 +28,7 @@
 
         <div class="col-md-6 mb-2">
             <div class="card h-100">
-                <div class="card-header py-2">Berdasarkan Rating</div>
+                <div class="card-header py-2">Berdasarkan Rating Keseluruhan</div>
                 <div class="card-body p-2">
                     <canvas id="chartRating"></canvas>
                 </div>
@@ -59,7 +59,7 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('theme/js') }}/chart.js"></script>
     <script>
         const labelsLocation = {!! json_encode($labelsLocation) !!};
         const dataLocation = {!! json_encode($dataLocation) !!};
@@ -78,7 +78,7 @@
                     data: dataLocation,
                     backgroundColor: colors,
                     borderColor: colors.map(c => c.replace('60%',
-                    '40%')), // sedikit lebih gelap untuk border
+                        '40%')), // sedikit lebih gelap untuk border
                     borderWidth: 1
                 }]
             },
@@ -126,22 +126,42 @@
             }
         });
 
+        const labels = {!! json_encode($labelsRating) !!};
+        const data = {!! json_encode($dataRating) !!};
+
+        const combinedLabels = labels.map((label, i) => `${label} (${data[i]})`);
+
         const chartRating = new Chart(document.getElementById('chartRating'), {
             type: 'doughnut',
             data: {
-                labels: {!! json_encode($labelsRating) !!},
+                labels: combinedLabels,
                 datasets: [{
-                    data: {!! json_encode($dataRating) !!},
+                    data: data,
                     backgroundColor: ['#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff']
                 }]
             },
             options: {
                 plugins: {
                     legend: {
-                        position: 'bottom',
+                        position: 'right',
+                        align: 'center',
                         labels: {
-                            boxWidth: 10
+                            boxWidth: 15,
+                            padding: 10, // 🔹 kecilkan jarak antar item legend
+                            usePointStyle: true
                         }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.formattedValue}`;
+                            }
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        right: 20 // 🔹 kecilkan jarak antara chart dan legend
                     }
                 },
                 maintainAspectRatio: false
