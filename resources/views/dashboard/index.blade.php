@@ -137,7 +137,7 @@
                 labels: combinedLabels,
                 datasets: [{
                     data: data,
-                    backgroundColor: ['#dc3545', '#fd7e14', '#ffc107', '#28a745', '#007bff']
+                    backgroundColor: ['#dc3545', '#2d97fb', '#43a047']
                 }]
             },
             options: {

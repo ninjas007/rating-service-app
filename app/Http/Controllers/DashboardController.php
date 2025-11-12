@@ -52,7 +52,7 @@ class DashboardController extends Controller
             ->orderBy('rating')
             ->get();
 
-        $ratingLabels = [1 => 'Very Bad', 2 => 'Bad', 3 => 'Neutral', 4 => 'Good', 5 => 'Very Good'];
+        $ratingLabels = [1 => 'Tidak puas', 2 => 'Puas', 3 => 'Sangat puas'];
 
         $labelsRating = $byRating->pluck('rating')->map(fn($r) => $ratingLabels[$r] ?? 'Unknown');
         $dataRating   = $byRating->pluck('total');
