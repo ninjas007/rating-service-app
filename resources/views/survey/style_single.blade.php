@@ -145,12 +145,12 @@
     }
 
     .emoji-2 {
-        background: radial-gradient(circle, #d32f2f, #ef5350);
+        background: radial-gradient(circle, #2d97fb, #2d97fb);
         color: white;
     }
 
     .emoji-3 {
-        background: radial-gradient(circle, #fbc02d, #ffeb3b);
+        background: radial-gradient(circle, #66bb6a, #43a047);
     }
 
     .emoji-4 {
@@ -162,6 +162,19 @@
         background: radial-gradient(circle, #2e7d32, #00c853);
         color: white;
     }
+
+    .emoji-text {
+        font-size: 3vmin;
+        font-weight: 600;
+        margin-top: 1vmin;
+    }
+
+    .emoji-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
 
     /* Footer (fixed bottom) */
     .running-text {

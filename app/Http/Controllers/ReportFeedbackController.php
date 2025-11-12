@@ -58,11 +58,11 @@ class ReportFeedbackController extends Controller
             ->join('locations as l', 'l.id', '=', 'r.response_location_id')
             ->select(
                 'l.name as area',
-                DB::raw("SUM(CASE WHEN r.response_value = 1 THEN 1 ELSE 0 END) as very_bad"),
-                DB::raw("SUM(CASE WHEN r.response_value = 2 THEN 1 ELSE 0 END) as bad"),
-                DB::raw("SUM(CASE WHEN r.response_value = 3 THEN 1 ELSE 0 END) as neutral"),
-                DB::raw("SUM(CASE WHEN r.response_value = 4 THEN 1 ELSE 0 END) as good"),
-                DB::raw("SUM(CASE WHEN r.response_value = 5 THEN 1 ELSE 0 END) as very_good"),
+                DB::raw("SUM(CASE WHEN r.response_value = 1 THEN 1 ELSE 0 END) as bad"),
+                DB::raw("SUM(CASE WHEN r.response_value = 2 THEN 1 ELSE 0 END) as good"),
+                DB::raw("SUM(CASE WHEN r.response_value = 3 THEN 1 ELSE 0 END) as very_good"),
+                // DB::raw("SUM(CASE WHEN r.response_value = 4 THEN 1 ELSE 0 END) as good"),
+                // DB::raw("SUM(CASE WHEN r.response_value = 5 THEN 1 ELSE 0 END) as very_good"),
                 DB::raw("COUNT(*) as total")
             )
             ->whereDate('r.created_at', $tanggal)

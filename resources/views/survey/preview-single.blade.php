@@ -71,19 +71,20 @@
             const surveyId = "{{ $survey->id }}";
             const questionId = "{{ $survey->details[0]->question_id }}";
             const locationId = "{{ $survey->location_id }}";
-            const icons = ['😡', '😞', '😐', '🙂', '😄'];
+            // const icons = ['😡', '😞', '😐', '🙂', '😄'];
+            const icons = ['😡', '🙂', '😄'];
             const $container = $("#feedbackOptions");
-            const tooltips = ['Very Bad', 'Bad', 'Neutral', 'Good', 'Very Good'];
-
+            // const tooltips = ['Very Bad', 'Bad', 'Neutral', 'Good', 'Very Good'];
+            const tooltips = ['Tidak puas', 'Puas', 'Sangat puas'];
             // Render emoji buttons
             icons.forEach((emoji, i) => {
                 const idx = i + 1;
                 const html = `
+                <div class="emoji-option">
                     <input type="radio" name="rating" value="${idx}" id="rating-${idx}">
-                    <label for="rating-${idx}" class="emoji-label emoji-${idx}"
-                        data-bs-toggle="tooltip" title="${tooltips[i]}">
-                        ${emoji}
-                    </label>
+                    <label for="rating-${idx}" class="emoji-label emoji-${idx}" data-bs-toggle="tooltip" data-bs-original-title="${tooltips[i]}">${emoji}</label>
+                    <div class="emoji-text">${tooltips[i]}</div>
+                </div>
                 `;
                 $container.append(html);
             });
@@ -104,7 +105,7 @@
             // Ketika user pilih emoji
             $container.on("change", "input[name='rating']", function() {
                 selectedRating = $(this).val();
-                if (selectedRating <= 2) {
+                if (selectedRating <= 1) {
                     reasonModal.show();
                 } else {
                     showThankyouModal();

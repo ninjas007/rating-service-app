@@ -39,11 +39,11 @@
             <tr>
                 <th>No</th>
                 <th>Area</th>
-                <th>Very Bad</th>
-                <th>Bad</th>
-                <th>Neutral</th>
-                <th>Good</th>
-                <th>Very Good</th>
+                <th>Tidak puas</th>
+                <th>Puas</th>
+                <th>Sangat puas</th>
+                {{-- <th>Good</th>
+                <th>Very Good</th> --}}
                 <th>Total</th>
             </tr>
         </thead>
@@ -52,11 +52,11 @@
                 <tr>
                     <td>{{ $i + 1 }}</td>
                     <td>{{ $row->area }}</td>
-                    <td>{{ $row->very_bad }}</td>
                     <td>{{ $row->bad }}</td>
-                    <td>{{ $row->neutral }}</td>
                     <td>{{ $row->good }}</td>
                     <td>{{ $row->very_good }}</td>
+                    {{-- <td>{{ $row->neutral }}</td>
+                    <td>{{ $row->good }}</td> --}}
                     <td>{{ $row->total }}</td>
                 </tr>
             @endforeach
